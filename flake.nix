@@ -3,7 +3,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
-  outputs = { nixpkgs, ... }:
+  outputs = { self, nixpkgs, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       pkgSet = pkgs.zeroadPackages;
@@ -26,5 +26,6 @@
         });
         zeroad = (pkgSet.zeroad.override { inherit zeroad-data zeroad-unwrapped; });
       };
+      defaultPackage.x86_64-linux = self.packages.x86_64-linux.zeroad-unwrapped;
     };
 }
