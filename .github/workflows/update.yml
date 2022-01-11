@@ -1,0 +1,19 @@
+name: update
+
+
+on:
+  schedule:
+    - cron: '14 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - uses: cachix/install-nix-action@v15
+      - run: nix flake update
+      - run: nix build .#zeroad
+      - uses: stefanzweifel/git-auto-commit-action@v4.6.0
+        with:
+          commit_message: "Update nixpkgs"
