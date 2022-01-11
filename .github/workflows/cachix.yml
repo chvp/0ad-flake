@@ -17,4 +17,3 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           pushFilter: "(-source$|-data-)"
       - run: nix build .#zeroad
-      - run: nix-build | cachix push chvp
