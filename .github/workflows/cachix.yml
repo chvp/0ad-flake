@@ -15,5 +15,6 @@ jobs:
         with:
           name: chvp
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-          pushFilter: "(-source$|-data-)"
-      - run: nix build -L .#zeroad-unwrapped
+          skipPush: true
+      - run: nix build -L .#zeroad
+      - run: nix eval --json ".#zeroad-unwrapped.outPath" | sed 's/"\(.*\)"/\1/' | cachix push chvp
