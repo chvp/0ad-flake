@@ -19,7 +19,7 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           skipPush: true
       - run: nix flake update
-      - run: nix build -L --no-link .#zeroad-unwrapped
+      - run: nix build -L --no-link .#zeroad
       - run: nix eval --json ".#zeroad-unwrapped.outPath" | sed 's/"\(.*\)"/\1/' | cachix push chvp
       - uses: stefanzweifel/git-auto-commit-action@v4.6.0
         with:

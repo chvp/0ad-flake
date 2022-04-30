@@ -10,6 +10,7 @@
     in
     {
       packages.x86_64-linux = rec {
+        default = zeroad-unwrapped;
         zeroad-unwrapped = pkgSet.zeroad-unwrapped.overrideAttrs (old: rec {
           version = "0.0.24b";
           src = pkgs.fetchurl {
@@ -26,6 +27,5 @@
         });
         zeroad = (pkgSet.zeroad.override { inherit zeroad-data zeroad-unwrapped; });
       };
-      defaultPackage.x86_64-linux = self.packages.x86_64-linux.zeroad-unwrapped;
     };
 }
